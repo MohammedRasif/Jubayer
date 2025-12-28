@@ -1,27 +1,17 @@
 import image from "../../image/Asset.png";
-import image1 from "../../image/Frame 2147227310.png";
+import image1 from "../../image/Project hero video 1.mp4";
 import image2 from "../../image/Frame 1000004068.png";
 import ProjectFile from "./ProjectFile";
 import Contact from "./Contact";
-
+import { NavLink } from "react-router-dom";
 
 function ProjectTab() {
-  
   return (
     <div className="bg-[#081228]">
+      <video src={image1} autoPlay loop muted playsInline className=""></video>
       <div className="">
-        <div>
-          <img src={image} alt="" className="mx-auto h-96 " />
-          <img
-            src={image1}
-            alt=""
-            className="mx-auto absolute top-28 left-50 h-45"
-          />
-          <img
-            src={image1}
-            alt=""
-            className="mx-auto absolute bottom-[50vh] right-50 h-45"
-          />
+        <div className="absolute top-10 left-2/7">
+          <img src={image} alt="" className="mx-auto h-[47vh] " />
         </div>
         <div className="flex items-center justify-center">
           <div className="absolute  top-30">
@@ -33,9 +23,8 @@ function ProjectTab() {
                   className="h-11 md:h-16 lg:h-18 drop-shadow-2xl"
                 />
               </div>
-
               <div className="inline-flex items-center px-4 py-2 mb-3 bg-[#334155]/80 backdrop-blur-sm rounded-md border border-gray-600/50 shadow-lg">
-                <span className="text-gray-400 text-sm font-medium">Home</span>
+                <NavLink className="cursor-pointer" to="/"> <span className="text-gray-400 text-sm font-medium">Home</span></NavLink>
                 <span className="mx-2 text-gray-400">
                   <svg
                     className="w-4 h-4"

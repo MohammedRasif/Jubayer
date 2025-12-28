@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const categories = [
   "All Project",
@@ -17,11 +17,14 @@ export default function ProjectFile() {
   const [activeCategory, setActiveCategory] = useState("All Project");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await axios.get("https://ahmadjubayerr.pythonanywhere.com/api/projects/");
+        const res = await axios.get(
+          "https://ahmadjubayerr.pythonanywhere.com/api/projects/"
+        );
         setProjects(res.data || []);
         console.log("API Projects:", res.data);
       } catch (error) {
@@ -38,7 +41,7 @@ export default function ProjectFile() {
     if (!cat) return "";
     return cat
       .split("_")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
 
@@ -58,7 +61,7 @@ export default function ProjectFile() {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-[#00184C]">
+      <div className="min-h-[60vh] flex items-center justify-center bg-[#081228]">
         <p className="text-white text-xl">Loading projects...</p>
       </div>
     );
@@ -66,7 +69,7 @@ export default function ProjectFile() {
 
   return (
     <div className="">
-      {/* Category Filter Buttons */}
+      
       <div className="flex flex-wrap gap-3 justify-center mt-10 bg-[#00184C] py-5">
         {categories.map((category) => (
           <button
@@ -91,9 +94,9 @@ export default function ProjectFile() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {filteredProjects.map((project) => (
               <div
-                key={project.id || project.title}
-                onClick={() => navigate(`/project_details/${encodeURIComponent(project.title)}`)}
-                className="rounded-2xl overflow-hidden bg-gray-900/40 border border-gray-800 hover:border-blue-600/50 transition-all duration-300"
+                key={project.id}
+                onClick={() => navigate(`/project_details/${project.id}`)}
+                className="rounded-2xl overflow-hidden bg-gray-900/40 "
               >
                 <div className="h-[330px] flex items-center justify-center bg-black/40">
                   {project.canvas_image ? (
@@ -116,16 +119,6 @@ export default function ProjectFile() {
                   <h3 className="text-white text-2xl font-semibold mb-3">
                     {project.title || "Untitled Project"}
                   </h3>
-
-                  {project.tag && (
-                    <p className="text-blue-400 text-sm mb-3">#{project.tag}</p>
-                  )}
-
-                  {project.duration && (
-                    <p className="text-gray-500 text-sm mb-4">
-                      Duration: {project.duration}
-                    </p>
-                  )}
 
                   <p className="text-gray-300 text-base leading-relaxed line-clamp-4">
                     {project.body || "No description available..."}

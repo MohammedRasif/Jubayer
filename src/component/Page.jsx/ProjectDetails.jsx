@@ -1,72 +1,176 @@
 "use client";
 
-import { useParams, useNavigate } from "react-router-dom"; // or next/navigation if Next.js App Router
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import image from "../../image/Asset.png";
+import image1 from "../../image/Project hero video 1.mp4";
+import image2 from "../../image/Frame 1000004068.png";
 
 const ProjectDetails = () => {
-  const { id } = useParams(); // /project_details/:id → id pabo
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const baseURL = "https://ahmadjubayerr.pythonanywhere.com";
 
   useEffect(() => {
-  const fetchProject = async () => {
-    try {
+    const fetchProject = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      const res = await axios.get("https://ahmadjubayerr.pythonanywhere.com/api/projects/");
-      const foundProject = res.data.find(
-        (p) => p.title.toLowerCase() === projectTitle.toLowerCase()
-      );
-      if (foundProject) {
-        setProject(foundProject);
-      } else {
-        setError("Project not found");
+        const response = await axios.get(
+          `${baseURL}/api/projects/${id}/detail/`
+        );
+
+        setProject(response.data);
+      } catch (err) {
+        console.error("Error fetching project details:", err);
+        setError("Failed to load project details. Please try again later.");
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      console.error(err);
-      setError("Failed to load project");
-    } finally {
-      setLoading(false);
+    };
+    if (id) {
+      fetchProject();
     }
-  };
-  fetchProject();
-}, [projectTitle]);
+  }, [id]);
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#00184C]">
-        <div className="text-white text-xl">Loading project...</div>
+      <div className="min-h-screen flex items-center justify-center bg-[#081228]">
+        <div className="text-white text-xl animate-pulse">
+          Loading project details...
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#081228] text-white">
+        <p className="text-red-400 text-2xl mb-6">{error}</p>
+        <button
+          onClick={() => navigate(-1)}
+          className="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition"
+        >
+          ← Back
+        </button>
       </div>
     );
   }
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#00184C]">
-        <div className="text-white text-xl">Project not found</div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#081228] text-white">
+        <p className="text-xl mb-6">Project not found</p>
+        <button
+          onClick={() => navigate(-1)}
+          className="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition"
+        >
+          ← Back
+        </button>
       </div>
     );
   }
+
   return (
-    <div className="min-h-screen bg-[#00184C] text-white">
-      {/* Back Button */}
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-[#081228] text-white pb-16">
+      <video src={image1} autoPlay loop muted playsInline className=""></video>
+      <div className="">
+        <div className="absolute top-10 left-2/7">
+          <img src={image} alt="" className="mx-auto h-[47vh] " />
+        </div>
+        <div className="flex items-center justify-center">
+          <div className="absolute  top-30">
+            <div className="relative text-center px-6 max-w-4xl mx-auto">
+              <div className="flex items-center justify-center mb-7">
+                <img
+                  src={image2}
+                  alt="JJ Logo"
+                  className="h-11 md:h-16 lg:h-18 drop-shadow-2xl"
+                />
+              </div>
+              <div className="inline-flex items-center px-4 py-2 mb-3 bg-[#334155]/80 backdrop-blur-sm rounded-md border border-gray-600/50 shadow-lg">
+                <NavLink to="/">
+                  <span className="text-gray-400 text-sm font-medium">
+                    Home
+                  </span>
+                </NavLink>
+                <span className="mx-2 text-gray-400">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </span>
+                <NavLink className="cursor-pointer" to="/project">
+                  <span className="text-gray-400 text-sm font-medium">
+                    Projects
+                  </span>
+                </NavLink>
+                <span className="mx-2 text-gray-400">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </span>
+                <span className="text-gray-200 text-sm font-medium">
+                  Projects Details
+                </span>
+              </div>
+
+              {/* Main Headline - Rozha-like font (use Google Fonts or custom) */}
+              <h1 className="text-white text-4xl md:text-5xl lg:text-[40px] rozha font-bold leading-tight tracking-wide drop-shadow-2xl">
+                Car Rental: Smart Rides,
+                <br />
+                Smooth Journeys
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="">
         <button
           onClick={() => navigate(-1)}
-          className="mb-8 flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-        >
-          ← Back to Projects
-        </button>
+          className="mb-10 flex items-center gap-2 text-gray-500 hover:text-gray-400 cursor-pointer transition-colors text-lg bg-[#00184C] w-full py-8 px-50  mt-14"
+        ></button>
 
-        <div className="max-w-5xl mx-auto">
-          {/* Header */}
-          <div className="mb-12">
-            <span className="inline-block px-6 py-2 rounded-full border border-gray-600 text-gray-300 text-lg mb-6">
-              {project.category?.replace("_", " ") || "Case Study"}
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{project.title}</h1>
-            {project.duration && (
-              <p className="text-gray-400 text-lg">Duration: {project.duration}</p>
+        <div className="max-w-6xl mx-auto flex flex-col items-center -mt-30">
+          <div className="lg:pb-20 ">
+            {project.overview_video_link && (
+              <div className="  rounded-2xl max-w-2xl overflow-hidden border-40 border-gray-800 bg-black">
+                <div className="aspect-video">
+                  <video
+                    src={project.overview_video_link}
+                    controls
+                    className="w-full h-full object-cover"
+                    poster={`${baseURL}${project.canvas_image || ""}`}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
             )}
           </div>
 
@@ -74,51 +178,11 @@ const ProjectDetails = () => {
           {project.canvas_image && (
             <div className="mb-16 rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
               <img
-                src={`https://ahmadjubayerr.pythonanywhere.com${project.canvas_image}`}
-                alt={project.title}
+                src={`${baseURL}${project.canvas_image}`}
+                alt={project.title || "Project preview"}
                 className="w-full h-auto object-cover"
+                loading="lazy"
               />
-            </div>
-          )}
-
-          {/* Video + SVG side by side */}
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {/* Video Section */}
-            {project.overview_video_link && (
-              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
-                <div className="aspect-video">
-                  <video
-                    src={project.overview_video_link}
-                    controls
-                    className="w-full h-full object-cover"
-                  >
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-                <p className="p-4 text-gray-400">Project Overview Video</p>
-              </div>
-            )}
-
-            {/* SVG Section */}
-            {project.svg_file && (
-              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black/40">
-                <div className="aspect-video flex items-center justify-center p-6">
-                  <img
-                    src={`https://ahmadjubayerr.pythonanywhere.com${project.svg_file}`}
-                    alt="Project SVG"
-                    className="max-w-full max-h-full object-contain"
-                  />
-                </div>
-                <p className="p-4 text-gray-400">Project SVG / Wireframe</p>
-              </div>
-            )}
-          </div>
-
-          {/* Description / Body */}
-          {project.body && (
-            <div className="prose prose-invert max-w-none">
-              <h2 className="text-3xl font-bold mb-6">Project Details</h2>
-              <div dangerouslySetInnerHTML={{ __html: project.body }} />
             </div>
           )}
         </div>
