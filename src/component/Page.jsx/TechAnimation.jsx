@@ -23,24 +23,24 @@ import ThirdImage6 from "../../image/Group 1321318965.png";
 const techIcons1 = [
   { img: FristImage1, width: 90, height: 90, angle: -0 },
   { img: FristImage2, width: 90, height: 90, angle: -30 },
-  { img: FristImage3, width: 90, height: 90, angle: -80 },
+  { img: FristImage3, width: 90, height: 90, angle: -60 },
   { img: FristImage4, width: 70, height: 70, angle: -150 },
-  { img: FristImage5, width: 90, height: 90, angle: -190 },
+  { img: FristImage5, width: 90, height: 90, angle: -180 },
 ];
 const techIcons2 = [
   { img: SecondImage1, width: 190, height: 140, angle: -0 },
   { img: SecondImage2, width: 180, height: 130, angle: -30 },
-  { img: SecondImage3, width: 210, height: 160, angle: -80 },
+  { img: SecondImage3, width: 210, height: 160, angle: -60 },
   { img: SecondImage4, width: 160, height: 190, angle: -150},
-  { img: SecondImage5, width: 90, height: 90, angle: -210 },
+  { img: SecondImage5, width: 90, height: 90, angle: -178 },
 ];
 const techIcons3 = [
   { img: ThirdImage1, width: 110, height: 110, angle: -0 },
   { img: ThirdImage2, width: 120, height: 120, angle: -30 },
-  { img: ThirdImage3, width: 190, height: 130, angle: -75 },
+  { img: ThirdImage3, width: 190, height: 130, angle: -60 },
   { img: ThirdImage4, width: 200, height: 130, angle: -130 },
   { img: ThirdImage5, width: 100, height: 100, angle: -180 },
-  { img: ThirdImage6, width: 115, height: 115, angle: -220 },
+  { img: ThirdImage6, width: 115, height: 115, angle: -155 },
 ];
 
 const getPositionFromAngle = (angle) => {
