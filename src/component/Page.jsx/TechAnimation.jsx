@@ -27,7 +27,6 @@ const techIcons1 = [
   { img: FristImage4, width: 70, height: 70, angle: -150 },
   { img: FristImage5, width: 90, height: 90, angle: -190 },
 ];
-
 const techIcons2 = [
   { img: SecondImage1, width: 190, height: 140, angle: -0 },
   { img: SecondImage2, width: 180, height: 130, angle: -30 },
@@ -35,7 +34,6 @@ const techIcons2 = [
   { img: SecondImage4, width: 160, height: 190, angle: -150},
   { img: SecondImage5, width: 90, height: 90, angle: -210 },
 ];
-
 const techIcons3 = [
   { img: ThirdImage1, width: 110, height: 110, angle: -0 },
   { img: ThirdImage2, width: 120, height: 120, angle: -30 },
