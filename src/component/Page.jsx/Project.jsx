@@ -8,7 +8,7 @@ import image5 from "../../image/Didiflow cover 1.png";
 import ProjectCards from "./ProjectCard";
 function Project() {
   return (
-    <div className="">
+    <div className="pt-30">
       <div className="text-center flex flex-col items-center justify-center container mx-auto">
         <img src={image} alt="" />
 
@@ -22,16 +22,16 @@ function Project() {
         </p>
       </div>
       {/* card show */}
-      <div className="container mx-auto">
+      <div className="container mx-auto pb-20">
         <ProjectCards />
       </div>
       {/* have a project in mind */}
-      <div className="flex flex-col items-center justify-center space-y-5 bg-[#17223AED] py-14">
+      <div  className="flex flex-col items-center justify-center space-y-5 bg-[#17223AED] py-14">
         <h1 className="text-4xl font-semibold rozha  bg-gradient-to-r from-white to-[#0137fa] bg-clip-text text-transparent">
           Have a project in mind?
         </h1>
         <p className="text-[#64748B] text-[18px] text-center">
-          Let's collaborate and create something amazing together. I'm always
+          Let's collaborate and create something amazing together. <br /> I'm always
           excited to work on new and challenging projects.
         </p>
         <button className="text-[16px] px-6 py-3 bg-gradient-to-r from-[#194BFB] to-[#7D3AED] text-white font-semibold rounded-md">

@@ -3,6 +3,7 @@ import image from "../../image/Mask group.png";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
+  FaArrowRight,
   FaBehance,
   FaDribbble,
   FaFacebookF,
@@ -10,6 +11,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import { GoArrowRight } from "react-icons/go";
 
 function banner() {
   const [websiteCount, setWebsiteCount] = useState(0);
@@ -65,7 +67,7 @@ function banner() {
       <div className="-mt-20 -ml-16 mb-20">
         <TechAnimation />
       </div>
-      <div className="absolute -top-10 left-0 w-full h-full flex flex-col items-center justify-center pointer-events-none">
+      <div className="absolute -top-10 left-0 w-full h-full flex flex-col items-center justify-center ">
         <div className=" h-[60vh] w-[60vh] rounded-full bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center shadow-2xl">
           <span className=" font-bold text-white">
             <img src={image} className="w-full h-full" alt="" />
@@ -97,31 +99,37 @@ function banner() {
           {/* Social Icons */}
           <div className="flex justify-center gap-6 my-8">
             <a
-              href="#"
+              href="https://www.instagram.com/ahmadjubayerr/?__pwa=1"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaInstagram size={22} />
             </a>
             <a
-              href="#"
+              href="https://x.com/ahmadjubayerr"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <BsTwitterX size={22} />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/ahmadjubayerr/"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaLinkedinIn size={22} />
             </a>
             <a
-              href="#"
+              href="https://www.behance.net/ahmadjubayerr"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaBehance size={22} />
             </a>
             <a
-              href="#"
+              href="https://dribbble.com/ahmadjubayerr"
+              className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
+            >
+              <FaDribbble  size={22} />
+            </a>
+            <a
+              href="https://www.facebook.com/ahmadjubayerrr/"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaFacebookF size={22} />
@@ -130,12 +138,13 @@ function banner() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button className="px-10 py-2.5 bg-transparent border-2 border-blue-600 rounded-md text-blue-400 font-medium hover:bg-blue-600/10 transition-all text-lg">
+            <button className="px-9 py-2 bg-transparent border-2 border-blue-600 rounded-md text-blue-400 font-medium hover:bg-blue-600/10 transition-all text-lg">
               Resume
             </button>
 
-            <button className="px-10 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-md font-medium text-white hover:from-blue-700 hover:to-purple-700 transition-all text-lg shadow-lg shadow-blue-600/20">
-              Hire Me →
+            <button className=" flex items-center px-10 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-md font-medium text-white hover:from-blue-700 hover:to-purple-700 transition-all text-lg shadow-lg shadow-blue-600/20">
+              Hire Me <FaArrowRight className="ml-3 mt-[2px]"/>
+
             </button>
           </div>
 
