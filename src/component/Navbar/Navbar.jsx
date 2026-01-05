@@ -37,10 +37,11 @@ function Navbar() {
               <button
                 key={route}
                 onClick={() => handleRouteClick(index)}
-                className="absolute left-1/2 top-1/2 cursor-pointer z-10 transition-all duration-300 hover:scale-105"
+                className="absolute left-1/2 top-1/2 cursor-pointer z-10 hover:scale-105"
                 style={{
                   transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
-                  transition: "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transition:
+                    "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s ease",
                 }}
               >
                 {isActive && (

@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 import { GoArrowRight } from "react-icons/go";
+import Navbar from "../Navbar/Navbar";
 
 function banner() {
   const [websiteCount, setWebsiteCount] = useState(0);
@@ -67,6 +68,7 @@ function banner() {
       <div className="-mt-20 -ml-16 mb-20">
         <TechAnimation />
       </div>
+      <Navbar/>
       <div className="absolute -top-10 left-0 w-full h-full flex flex-col items-center justify-center ">
         <div className=" h-[60vh] w-[60vh] rounded-full bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center shadow-2xl">
           <span className=" font-bold text-white">
