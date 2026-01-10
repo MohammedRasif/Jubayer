@@ -171,57 +171,59 @@ function Navbar() {
                     "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s ease",
                 }}
               >
-                {/* Background Image - Flipped for Non-Active items to face center */}
                 <div
-                  className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 transition-transform duration-500 ${
-                    !isActive ? "rotate-180" : ""
+                  className={`relative w-full h-full flex items-center justify-center transition-all duration-700 ${
+                    isActive ? "" : "rotate-180"
                   }`}
                 >
-                  <img
-                    src={isActive ? selectedBg : nonSelectedBg}
-                    className="bg-cover bg-center shadow-lg w-[120px] h-[55px]"
-                    alt=""
-                  />
-                </div>
+                  {/* Background Image - Follows Button Direction */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10">
+                    <img
+                      src={isActive ? selectedBg : nonSelectedBg}
+                      className="bg-cover bg-center shadow-lg w-[120px] h-[55px]"
+                      alt=""
+                    />
+                  </div>
 
-                {/* Curved Text - Centered and Curved to match the ribbon */}
-                <div
-                  className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none ${
-                    isActive ? "translate-y-[1px]" : "translate-y-[2px]"
-                  }`}
-                >
-                  <svg
-                    width="120"
-                    height="60"
-                    viewBox="0 0 120 60"
-                    className="overflow-visible"
+                  {/* Curved Text - Centered and Curved to match the ribbon */}
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none ${
+                      isActive ? "translate-y-[1px]" : "translate-y-[2px]"
+                    }`}
                   >
-                    <defs>
-                      <path
-                        id={`curve-${index}`}
-                        d="M 12,42 Q 60,10 108,42"
-                        fill="transparent"
-                      />
-                    </defs>
-                    <text
-                      className={`font-semibold tracking-wider ${
-                        isActive ? "fill-white" : "fill-gray-400/80"
-                      }`}
-                      style={{
-                        transition: "all 0.3s ease",
-                        fontSize: isActive ? "16px" : "14px",
-                        fontWeight: isActive ? "600" : "500",
-                      }}
+                    <svg
+                      width="120"
+                      height="60"
+                      viewBox="0 0 120 60"
+                      className="overflow-visible"
                     >
-                      <textPath
-                        href={`#curve-${index}`}
-                        startOffset="50%"
-                        textAnchor="middle"
+                      <defs>
+                        <path
+                          id={`curve-${index}`}
+                          d="M 12,42 Q 60,10 108,42"
+                          fill="transparent"
+                        />
+                      </defs>
+                      <text
+                        className={`font-semibold tracking-wider ${
+                          isActive ? "fill-white" : "fill-gray-400/80"
+                        }`}
+                        style={{
+                          transition: "all 0.3s ease",
+                          fontSize: isActive ? "16px" : "14px",
+                          fontWeight: isActive ? "600" : "500",
+                        }}
                       >
-                        {route}
-                      </textPath>
-                    </text>
-                  </svg>
+                        <textPath
+                          href={`#curve-${index}`}
+                          startOffset="50%"
+                          textAnchor="middle"
+                        >
+                          {route}
+                        </textPath>
+                      </text>
+                    </svg>
+                  </div>
                 </div>
               </button>
             );
