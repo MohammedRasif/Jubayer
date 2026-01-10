@@ -89,7 +89,7 @@ const ProjectDetails = () => {
 
   return (
     <div className="min-h-screen bg-[#081228] text-white pb-16">
-      <video src={image1} autoPlay loop muted playsInline className=""></video>
+      <video src={image1} autoPlay loop muted playsInline className="opacity-60"></video>
       <div className="">
         <div className="absolute top-10 left-2/12">
           <img src={image} alt="" className="mx-auto h-[47vh] " />
