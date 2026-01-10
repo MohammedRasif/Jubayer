@@ -21,11 +21,9 @@ function Project() {
           tools and concepts.
         </p>
       </div>
-      {/* card show */}
       <div className="container mx-auto pb-20">
         <ProjectCards />
       </div>
-      {/* have a project in mind */}
       <div  className="flex flex-col items-center justify-center space-y-5 bg-[#17223AED] py-14">
         <h1 className="text-4xl font-semibold rozha  bg-gradient-to-r from-white to-[#0137fa] bg-clip-text text-transparent">
           Have a project in mind?
