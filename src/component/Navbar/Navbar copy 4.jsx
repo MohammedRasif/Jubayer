@@ -58,7 +58,7 @@ function Navbar() {
     setRotation(targetRotation);
   };
   return (
-    <div className="flex items-center justify-center bg-[#081228] relative cursor-none">
+    <div className="flex items-center justify-center bg-[#081228] relative min-h-screen cursor-none">
       {/* Custom Cursor - Main Dot with Enhanced Gradient Glow */}
       <div
         ref={cursorRef}
@@ -164,68 +164,66 @@ function Navbar() {
                 onClick={() => handleRouteClick(index)}
                 onMouseEnter={() => setCursorVariant("hover")}
                 onMouseLeave={() => setCursorVariant("default")}
-                className="absolute left-1/2 top-1/2 z-10 hover:scale-110 transition-transform duration-300 w-[240px] h-[140px] flex items-center justify-center"
+                className="absolute left-1/2 top-1/2 z-10 hover:scale-110 transition-transform duration-300 w-[240px] h-[120px] flex items-center justify-center"
                 style={{
                   transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${angle}deg)`,
                   transition:
                     "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s ease",
                 }}
               >
-                {/* Background Image - Flipped for Non-Active items to face center */}
                 <div
-                  className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 transition-transform duration-500 ${
-                    !isActive ? "rotate-180" : ""
+                  className={`relative w-full h-full flex items-center justify-center transition-all duration-700 ${
+                    isActive ? "" : "rotate-180"
                   }`}
                 >
-                  <img
-                    src={isActive ? selectedBg : nonSelectedBg}
-                    className="bg-cover bg-center shadow-lg transition-all duration-300"
-                    style={{
-                      width: isActive ? "136px" : "120px",
-                      height: isActive ? "66px" : "55px",
-                    }}
-                    alt=""
-                  />
-                </div>
+                  {/* Background Image - Follows Button Direction */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10">
+                    <img
+                      src={isActive ? selectedBg : nonSelectedBg}
+                      className="bg-cover bg-center shadow-lg w-[120px] h-[55px]"
+                      alt=""
+                    />
+                  </div>
 
-                {/* Curved Text - Centered and Curved to match the ribbon */}
-                <div
-                  className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none ${
-                    isActive ? "translate-y-[1px]" : "translate-y-[2px]"
-                  }`}
-                >
-                  <svg
-                    width="120"
-                    height="60"
-                    viewBox="0 0 120 60"
-                    className="overflow-visible"
+                  {/* Curved Text - Centered and Curved to match the ribbon */}
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none ${
+                      isActive ? "translate-y-[1px]" : "translate-y-[2px]"
+                    }`}
                   >
-                    <defs>
-                      <path
-                        id={`curve-${index}`}
-                        d="M 12,42 Q 60,10 108,42"
-                        fill="transparent"
-                      />
-                    </defs>
-                    <text
-                      className={`font-semibold tracking-wider ${
-                        isActive ? "fill-white" : "fill-gray-400/80"
-                      }`}
-                      style={{
-                        transition: "all 0.3s ease",
-                        fontSize: isActive ? "15px" : "14px",
-                        fontWeight: isActive ? "600" : "500",
-                      }}
+                    <svg
+                      width="120"
+                      height="60"
+                      viewBox="0 0 120 60"
+                      className="overflow-visible"
                     >
-                      <textPath
-                        href={`#curve-${index}`}
-                        startOffset="50%"
-                        textAnchor="middle"
+                      <defs>
+                        <path
+                          id={`curve-${index}`}
+                          d="M 12,42 Q 60,10 108,42"
+                          fill="transparent"
+                        />
+                      </defs>
+                      <text
+                        className={`font-semibold tracking-wider ${
+                          isActive ? "fill-white" : "fill-gray-400/80"
+                        }`}
+                        style={{
+                          transition: "all 0.3s ease",
+                          fontSize: isActive ? "16px" : "14px",
+                          fontWeight: isActive ? "600" : "500",
+                        }}
                       >
-                        {route}
-                      </textPath>
-                    </text>
-                  </svg>
+                        <textPath
+                          href={`#curve-${index}`}
+                          startOffset="50%"
+                          textAnchor="middle"
+                        >
+                          {route}
+                        </textPath>
+                      </text>
+                    </svg>
+                  </div>
                 </div>
               </button>
             );
