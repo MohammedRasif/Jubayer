@@ -76,6 +76,8 @@ function banner() {
           </span>
         </div>
 
+        
+
         <div className=" max-w-7xl w-full text-center space-y-2 -mt-10 ">
           {/* Main Heading */}
           <div>
