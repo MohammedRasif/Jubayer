@@ -37,7 +37,8 @@ function HeroSection() {
       </div>
 
       <img src={image} className="h-[58vh] w-auto" alt="" />
-      <h1 className="text-[70px] rozha">Hi, I'm Jubayer</h1>
+      <div className="-mt-38">
+        <h1 className="text-[70px] rozha">Hi, I'm Jubayer</h1>
       <p className="text-[18px] text-gray-300">
         I am an UI/UX Designer and I design because I love solving problems,
         questioning 'why, and making things feel right. UI/UX isn't just about
@@ -46,6 +47,7 @@ function HeroSection() {
         feeling effortless. If it makes sense without overthinking, I've done my
         job.
       </p>
+      </div>
     </div>
   );
 }
