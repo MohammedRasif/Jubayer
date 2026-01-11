@@ -1,5 +1,5 @@
+"use client";
 import TechAnimation from "./TechAnimation";
-import image from "../../image/Mask group.png";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -13,46 +13,93 @@ import {
 import { BsTwitterX } from "react-icons/bs";
 import { GoArrowRight } from "react-icons/go";
 import Navbar from "../Navbar/Navbar";
+import axios from "axios";
 
 function banner() {
   const [websiteCount, setWebsiteCount] = useState(0);
   const [mobileCount, setMobileCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+    const [activeLink, setActiveLink] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Scroll to section with offset
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      const offset = 50;
+      const sectionPosition =
+        section.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = sectionPosition - offset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+  const handleNavClick = (id) => {
+    setActiveLink(id);
+    scrollToSection(id);
+    setIsMenuOpen(false);
+  };
+
+  // Fetch profile data
   useEffect(() => {
-    const duration = 2000; 
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get(
+          "https://ahmadjubayerr.pythonanywhere.com/api/profile/"
+        );
+        setProfile(response.data);
+      } catch (err) {
+        console.error("Failed to fetch profile:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  // Counters animation based on API data
+  useEffect(() => {
+    if (!profile) return;
+
+    const duration = 2000;
     const steps = 60;
 
+    const websiteMax = profile.counts.website || 0;
     const websiteInterval = setInterval(() => {
       setWebsiteCount((prev) => {
-        if (prev >= 40) {
+        if (prev >= websiteMax) {
           clearInterval(websiteInterval);
-          return 40;
+          return websiteMax;
         }
         return prev + 1;
       });
     }, duration / steps);
 
-    // Mobile counter (starts a bit later)
     setTimeout(() => {
+      const mobileMax = profile.counts.mobile || 0;
       const mobileInterval = setInterval(() => {
         setMobileCount((prev) => {
-          if (prev >= 30) {
+          if (prev >= mobileMax) {
             clearInterval(mobileInterval);
-            return 30;
+            return mobileMax;
           }
           return prev + 1;
         });
       }, duration / steps);
     }, 800);
 
-    // Projects counter (starts even later)
     setTimeout(() => {
+      const projectMax = profile.counts.live || 0;
       const projectInterval = setInterval(() => {
         setProjectCount((prev) => {
-          if (prev >= 30) {
+          if (prev >= projectMax) {
             clearInterval(projectInterval);
-            return 30;
+            return projectMax;
           }
           return prev + 1;
         });
@@ -62,7 +109,18 @@ function banner() {
     return () => {
       clearInterval(websiteInterval);
     };
-  }, []);
+  }, [profile]);
+
+  if (loading) {
+    return <div className="w-full py-12 text-center text-white">Loading profile...</div>;
+  }
+
+  if (!profile) {
+    return <div className="w-full py-12 text-center text-red-400">Failed to load profile</div>;
+  }
+
+  const baseUrl = "https://ahmadjubayerr.pythonanywhere.com";
+
   return (
     <div>
       <div className="-mt-20 -ml-16 mb-20">
@@ -71,7 +129,7 @@ function banner() {
       <div className="absolute -top-10 left-0 w-full h-full flex flex-col items-center justify-center ">
         <div className=" h-[60vh] w-[60vh] rounded-full bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center shadow-2xl">
           <span className=" font-bold text-white">
-            <img src={image} className="w-full h-full" alt="" />
+            <img src={`${baseUrl}${profile.profile_image}`} className="w-full h-full" alt="" />
           </span>
         </div>
 
@@ -91,10 +149,7 @@ function banner() {
 
           {/* Description */}
           <p className="md:text-[16px] text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            I'm Jubayer Ahmad, a UI/UX & Graphic Designer passionate about
-            blending creativity with usability. I design impactful web and
-            mobile experiences that help businesses grow and users enjoy every
-            interaction.
+            {profile.about_me}
           </p>
 
           {/* Social Icons */}
@@ -139,11 +194,15 @@ function banner() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button className="px-9 py-2 bg-transparent border-2 border-blue-600 rounded-md text-blue-400 font-medium hover:bg-blue-600/10 transition-all text-lg">
+            <a
+              href={`${baseUrl}${profile.resume}`}
+              download
+              className="px-9 py-2 bg-transparent border-2 border-blue-600 rounded-md text-blue-400 font-medium hover:bg-blue-600/10 transition-all text-lg"
+            >
               Resume
-            </button>
+            </a>
 
-            <button className=" flex items-center px-10 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-md font-medium text-white hover:from-blue-700 hover:to-purple-700 transition-all text-lg shadow-lg shadow-blue-600/20">
+            <button onClick={() => scrollToSection("hire_me")} className=" flex items-center px-10 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-md font-medium text-white hover:from-blue-700 hover:to-purple-700 transition-all text-lg shadow-lg shadow-blue-600/20">
               Hire Me <FaArrowRight className="ml-3 mt-[2px]"/>
 
             </button>
