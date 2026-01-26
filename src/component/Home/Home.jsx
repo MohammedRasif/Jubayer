@@ -7,7 +7,7 @@ import Project from "../Page.jsx/Project";
 
 const Home = () => {
     return (
-        <div className="bg-[#081228] text-white">
+        <div className="bg-[#081228] text-white ">
             <Banner />
             <Project/>
             <About/>

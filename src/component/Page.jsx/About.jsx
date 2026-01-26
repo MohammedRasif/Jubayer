@@ -1,4 +1,3 @@
-import React from "react";
 import image from "../../image/Id Card.png";
 import image1 from "../../image/logos_adobe-indesign.png";
 import image2 from "../../image/logos_adobe-xd.png";

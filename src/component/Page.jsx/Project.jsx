@@ -9,10 +9,11 @@ import ProjectCards from "./ProjectCard";
 function Project() {
   return (
     <div className="pt-30">
-      <div className="text-center flex flex-col items-center justify-center container mx-auto">
+      <div className="text-center flex flex-col items-center justify-center container mx-auto gap-6 ">
         <img src={image} alt="" />
 
-        <h1 className="text-4xl font-semibold rozha  bg-gradient-to-r from-white to-[#0137fa] bg-clip-text text-transparent">
+        <div>
+          <h1 className="text-4xl font-semibold rozha  bg-gradient-to-r from-white to-[#0137fa] bg-clip-text text-transparent mb-2">
           My Creative Journey
         </h1>
 
@@ -20,12 +21,11 @@ function Project() {
           I like exploring and learning new. I always build projects try out new
           tools and concepts.
         </p>
+        </div>
       </div>
-      {/* card show */}
       <div className="container mx-auto pb-20">
         <ProjectCards />
       </div>
-      {/* have a project in mind */}
       <div  className="flex flex-col items-center justify-center space-y-5 bg-[#17223AED] py-14">
         <h1 className="text-4xl font-semibold rozha  bg-gradient-to-r from-white to-[#0137fa] bg-clip-text text-transparent">
           Have a project in mind?

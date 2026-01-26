@@ -1,38 +1,49 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 import selectedBg from "../../image/EllipseSelected.svg";
 import nonSelectedBg from "../../image/EllipseNonSelected.svg";
+import nonSelectedBg from "../../image/EllipseNonSelected 1.svg";
 import image1 from "../../image/Home Logo.svg";
+import { NavLink, useLocation } from "react-router-dom";
 
 function Navbar() {
-  const routes = ["Home", "Project", "Services", "About Me"];
+  const routes = [
+    { label: "Home", path: "/" },
+    { label: "Project", path: "/project" },
+    { label: "About Me", path: "/about" },
+    { label: "Service", path: "/asdf" },
+  ];
+
   const [rotation, setRotation] = useState(0);
   const [cursorVariant, setCursorVariant] = useState("default");
 
-  // Use refs for cursor position to avoid re-renders
   const cursorRef = useRef(null);
   const cursorTrailRef = useRef(null);
   const mousePos = useRef({ x: 0, y: 0 });
   const cursorPos = useRef({ x: 0, y: 0 });
   const trailPos = useRef({ x: 0, y: 0 });
+  const location = useLocation();
 
+  // Active route এর উপর ভিত্তি করে rotation সেট করা
+  useEffect(() => {
+    const activeIndex = routes.findIndex((r) => r.path === location.pathname);
+    if (activeIndex !== -1) {
+      setRotation(-activeIndex * (360 / routes.length));
+    }
+  }, [location.pathname, routes]);
+
+  // Mouse move + smooth cursor animation
   useEffect(() => {
     const handleMouseMove = (e) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
     };
 
-    // Smooth cursor animation with requestAnimationFrame
     const animateCursor = () => {
-      // Instant follow for main cursor
-      cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * 1;
-      cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * 1;
+      cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * 0.35;
+      cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * 0.35;
 
-      // Delayed follow for trail (creates floating effect)
-      trailPos.current.x += (mousePos.current.x - trailPos.current.x) * 0.15;
-      trailPos.current.y += (mousePos.current.y - trailPos.current.y) * 0.15;
+      trailPos.current.x += (mousePos.current.x - trailPos.current.x) * 0.12;
+      trailPos.current.y += (mousePos.current.y - trailPos.current.y) * 0.12;
 
-      // Update DOM directly for better performance
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate(${cursorPos.current.x}px, ${cursorPos.current.y}px)`;
       }
@@ -53,19 +64,21 @@ function Navbar() {
   }, []);
 
   const angleStep = 360 / routes.length;
+
   const handleRouteClick = (index) => {
-    const targetRotation = -index * angleStep;
-    setRotation(targetRotation);
+    setRotation(-index * angleStep);
   };
+
   return (
     <div className="flex items-center justify-center bg-[#081228] relative cursor-none">
       {/* Custom Cursor - Main Dot with Enhanced Gradient Glow */}
+    <>
+      {/* ===================== CUSTOM CURSOR ===================== */}
+      {/* Main glowing cursor - সবচেয়ে উপরে */}
       <div
         ref={cursorRef}
-        className="fixed pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2"
-        style={{ left: 0, top: 0 }}
+        className="fixed pointer-events-none z-[99999] -translate-x-1/2 -translate-y-1/2 left-0 top-0"
       >
-        {/* Outer glow rings */}
         <div
           className={`absolute inset-0 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 rounded-full bg-gradient-to-r from-blue-500/30 to-purple-500/30 blur-xl transition-all duration-300 ${
             cursorVariant === "hover" ? "w-12 h-12" : "w-8 h-8"
@@ -76,7 +89,6 @@ function Navbar() {
             cursorVariant === "hover" ? "w-8 h-8" : "w-6 h-6"
           }`}
         />
-        {/* Main dot */}
         <div
           className={`relative bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-200 ${
             cursorVariant === "hover"
@@ -86,40 +98,28 @@ function Navbar() {
         />
       </div>
 
-      {/* Custom Cursor - Trailing Circle with Glassmorphism */}
+      {/* Trailing glass circle */}
       <div
         ref={cursorTrailRef}
-        className="fixed pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2"
-        style={{ left: 0, top: 0 }}
+        className="fixed pointer-events-none z-[99998] -translate-x-1/2 -translate-y-1/2 left-0 top-0"
       >
         <div
           className={`rounded-full transition-all duration-500 relative ${
             cursorVariant === "hover" ? "w-16 h-16" : "w-10 h-10"
           }`}
         >
-          {/* Outermost glow layer */}
           <div
             className={`absolute -inset-4 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 blur-2xl transition-all duration-500 ${
-              cursorVariant === "hover"
-                ? "scale-110 opacity-80"
-                : "scale-100 opacity-50"
+              cursorVariant === "hover" ? "scale-110 opacity-80" : "scale-100 opacity-50"
             }`}
           />
-
-          {/* Mid glow layer */}
           <div
             className={`absolute -inset-2 rounded-full bg-gradient-to-r from-blue-500/15 to-purple-500/15 blur-xl transition-all duration-500 ${
-              cursorVariant === "hover"
-                ? "scale-105 opacity-70"
-                : "scale-100 opacity-50"
+              cursorVariant === "hover" ? "scale-105 opacity-70" : "scale-100 opacity-50"
             }`}
           />
-
-          {/* Gradient border with glow */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-25 blur-sm" />
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-35" />
-
-          {/* Glass inner fill with frosted effect - MORE TRANSPARENT */}
           <div
             className={`absolute inset-[2px] rounded-full bg-gradient-to-br from-[#081228]/30 via-[#081228]/40 to-[#081228]/30 backdrop-blur-md transition-all duration-500 ${
               cursorVariant === "hover"
@@ -127,11 +127,7 @@ function Navbar() {
                 : "shadow-[inset_0_0_10px_rgba(147,51,234,0.1)]"
             }`}
           />
-
-          {/* Highlight for glass effect */}
           <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-white/8 via-transparent to-transparent opacity-50" />
-
-          {/* Inner glow */}
           <div
             className={`absolute inset-[4px] rounded-full bg-gradient-to-r from-blue-500/8 to-purple-500/8 blur-md transition-all duration-500 ${
               cursorVariant === "hover" ? "opacity-80" : "opacity-40"
@@ -140,105 +136,96 @@ function Navbar() {
         </div>
       </div>
 
-      <div className="relative w-[240px] h-[240px]">
-        <div
-          className="absolute inset-0 will-change-transform"
-          style={{
-            transform: `rotate(${rotation}deg)`,
-            transition: "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        >
-          {routes.map((route, index) => {
-            const angle = index * angleStep;
-            const radian = (angle - 90) * (Math.PI / 180);
-            const radius = 100;
-            const x = Math.cos(radian) * radius;
-            const y = Math.sin(radian) * radius;
+      {/* ===================== NAVBAR ===================== */}
+      <div className="fixed top-10 right-14 z-[999] cursor-none">
+        <div className="flex items-center justify-center backdrop-blur-[2px] rounded-full">
+          <div className="relative w-[240px] h-[240px]">
+            <div
+              className="absolute inset-0 will-change-transform"
+              style={{
+                transform: `rotate(${rotation}deg)`,
+                transition: "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
+              }}
+            >
+              {routes.map((route, index) => {
+                const angle = index * angleStep;
+                const radian = (angle - 90) * (Math.PI / 180);
+                const radius = 100;
+                const x = Math.cos(radian) * radius;
+                const y = Math.sin(radian) * radius;
 
-            const normalizedAngle = (((angle + rotation) % 360) + 360) % 360;
-            const isActive = normalizedAngle < 3 || normalizedAngle > 357;
+                const normalizedAngle = (((angle + rotation) % 360) + 360) % 360;
+                const isActive = normalizedAngle < 3 || normalizedAngle > 357;
 
-            return (
-              <button
-                key={route}
-                onClick={() => handleRouteClick(index)}
-                onMouseEnter={() => setCursorVariant("hover")}
-                onMouseLeave={() => setCursorVariant("default")}
-                className="absolute left-1/2 top-1/2 z-10 hover:scale-110 transition-transform duration-300 w-[240px] h-[140px] flex items-center justify-center"
-                style={{
-                  transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${angle}deg)`,
-                  transition:
-                    "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s ease",
-                }}
-              >
-                {/* Background Image - Flipped for Non-Active items to face center */}
-                <div
-                  className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 transition-transform duration-500 ${
-                    !isActive ? "rotate-180" : ""
-                  }`}
-                >
-                  <img
-                    src={isActive ? selectedBg : nonSelectedBg}
-                    className="bg-cover bg-center shadow-lg transition-all duration-300"
+                return (
+                  <NavLink
+                    key={route.path}
+                    to={route.path}
+                    onClick={() => handleRouteClick(index)}
+                    onMouseEnter={() => setCursorVariant("hover")}
+                    onMouseLeave={() => setCursorVariant("default")}
+                    className="absolute left-1/2 top-1/2 z-10 hover:scale-110 transition-transform duration-300 w-[240px] h-[140px] flex items-center justify-center"
                     style={{
-                      width: isActive ? "136px" : "120px",
-                      height: isActive ? "66px" : "55px",
+                      transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${angle}deg)`,
+                      transition: "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s ease",
                     }}
-                    alt=""
-                  />
-                </div>
-
-                {/* Curved Text - Centered and Curved to match the ribbon */}
-                <div
-                  className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none ${
-                    isActive ? "translate-y-[1px]" : "translate-y-[2px]"
-                  }`}
-                >
-                  <svg
-                    width="120"
-                    height="60"
-                    viewBox="0 0 120 60"
-                    className="overflow-visible"
                   >
-                    <defs>
-                      <path
-                        id={`curve-${index}`}
-                        d="M 12,42 Q 60,10 108,42"
-                        fill="transparent"
-                      />
-                    </defs>
-                    <text
-                      className={`font-semibold tracking-wider ${
-                        isActive ? "fill-white" : "fill-gray-400/80"
+                    <div
+                      className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 transition-transform duration-500 ${
+                        !isActive ? "rotate-180" : ""
                       }`}
-                      style={{
-                        transition: "all 0.3s ease",
-                        fontSize: isActive ? "15px" : "14px",
-                        fontWeight: isActive ? "600" : "500",
-                      }}
                     >
-                      <textPath
-                        href={`#curve-${index}`}
-                        startOffset="50%"
-                        textAnchor="middle"
-                      >
-                        {route}
-                      </textPath>
-                    </text>
-                  </svg>
-                </div>
-              </button>
-            );
-          })}
-        </div>
+                      <img
+                        src={isActive ? selectedBg : nonSelectedBg}
+                        className="bg-cover bg-center shadow-lg transition-all duration-300"
+                        style={{
+                          width: isActive ? "136px" : "120px",
+                          height: isActive ? "66px" : "55px",
+                        }}
+                        alt=""
+                      />
+                    </div>
 
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 flex items-center justify-center pointer-events-none z-20">
-          <div className="w-full h-full rounded-2xl shadow-2xl flex items-center justify-center relative overflow-hidden">
-            <img src={image1} className="w-12 h-14" alt="" />
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none ${
+                        isActive ? "translate-y-[1px]" : "translate-y-[2px]"
+                      }`}
+                    >
+                      <svg width="120" height="60" viewBox="0 0 120 60" className="overflow-visible">
+                        <defs>
+                          <path id={`curve-${index}`} d="M 12,42 Q 60,10 108,42" fill="transparent" />
+                        </defs>
+                        <text
+                          className={`font-semibold tracking-wider ${
+                            isActive ? "fill-white" : "fill-gray-400/80"
+                          }`}
+                          style={{
+                            transition: "all 0.3s ease",
+                            fontSize: isActive ? "15px" : "14px",
+                            fontWeight: isActive ? "600" : "500",
+                          }}
+                        >
+                          <textPath href={`#curve-${index}`} startOffset="50%" textAnchor="middle">
+                            {route.label}
+                          </textPath>
+                        </text>
+                      </svg>
+                    </div>
+                  </NavLink>
+                );
+              })}
+            </div>
+
+            {/* Center Logo */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 flex items-center justify-center pointer-events-none z-20">
+              <div className="w-full h-full rounded-2xl shadow-2xl flex items-center justify-center relative overflow-hidden">
+                <img src={image1} className="w-12 h-14" alt="Logo" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

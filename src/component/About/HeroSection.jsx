@@ -5,8 +5,8 @@ import { NavLink } from "react-router-dom";
 
 function HeroSection() {
   return (
-    <div className="flex flex-col items-center justify-center text-center h-screen max-w-6xl mx-auto">
-      <div className="flex items-center justify-center mb-7 -mt-20">
+    <div className="flex flex-col items-center justify-center text-center py-10 pb-30 max-w-6xl mx-auto ">
+      <div className="flex items-center justify-center mb-7 ">
         <img
           src={image2}
           alt="JJ Logo"
@@ -36,8 +36,9 @@ function HeroSection() {
         <span className="text-gray-200 text-sm font-medium">About</span>
       </div>
 
-      <img src={image} className="h-96 w-auto" alt="" />
-      <h1 className="text-[70px] rozha">Hi, I'm Jubayer</h1>
+      <img src={image} className="h-[58vh] w-auto" alt="" />
+      <div className="-mt-38">
+        <h1 className="text-[70px] rozha">Hi, I'm Jubayer</h1>
       <p className="text-[18px] text-gray-300">
         I am an UI/UX Designer and I design because I love solving problems,
         questioning 'why, and making things feel right. UI/UX isn't just about
@@ -46,6 +47,7 @@ function HeroSection() {
         feeling effortless. If it makes sense without overthinking, I've done my
         job.
       </p>
+      </div>
     </div>
   );
 }
