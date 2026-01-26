@@ -118,14 +118,25 @@ export default function ProjectCardsCarousel() {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className="group relative bg-[#17223AED] rounded-2xl overflow-hidden h-full min-h-96 transition-all duration-500 shadow-lg hover:shadow-2xl">
+              <div 
+                className={`group relative bg-[#17223AED] rounded-2xl overflow-hidden h-full min-h-96 transition-all duration-500 shadow-lg hover:shadow-2xl border-4 border-transparent`}
+                style={{
+                  backgroundImage: hoveredIndex === index 
+                    ? 'linear-gradient(#17223AED, #17223AED), linear-gradient(to right, #2563eb, #9333ea)' 
+                    : 'none',
+                  backgroundOrigin: 'border-box',
+                  backgroundClip: 'padding-box, border-box'
+                }}
+              >
                 <div className="relative h-64 md:h-80 overflow-hidden rounded-2xl">
                   <div className="w-full h-full px-5 pt-5 group-hover:pt-0 transition-all duration-500">
-                    <img
-                      src={`https://ahmadjubayerr.pythonanywhere.com${card.canvas_image}`}
-                      alt={card.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 rounded-xl"
-                    />
+                    <div className="relative w-full h-full">
+                      <img
+                        src={`https://ahmadjubayerr.pythonanywhere.com${card.canvas_image}`}
+                        alt={card.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 rounded-xl"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -161,16 +172,16 @@ export default function ProjectCardsCarousel() {
                       {card.body?.substring(0, 100) || "Project description..."}
                       {card.body?.length > 100 ? "..." : ""}
                     </p>
-
-                    <div className="mt-4">
-                      <NavLink
-                        to={`/project_details/${card.id}`}
-                        className="text-cyan-400 hover:text-cyan-300 text-sm font-semibold transition-all duration-300 whitespace-nowrap hover:translate-x-1 inline-block"
-                      >
-                        See more →
-                      </NavLink>
-                    </div>
                   </div>
+                </div>
+                {/* Full Card Hover Overlay */}
+                <div className="absolute inset-0 bg-blue-900/10 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center z-20 pointer-events-none group-hover:pointer-events-auto backdrop-blur-[1px]">
+                  <NavLink
+                    to={`/project_details/${card.id}`}
+                    className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 hover:scale-110 active:scale-95 shadow-[0_0_20px_rgba(37,99,235,0.4)]"
+                  >
+                    View Project
+                  </NavLink>
                 </div>
               </div>
             </div>
