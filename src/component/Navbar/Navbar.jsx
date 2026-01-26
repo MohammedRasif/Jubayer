@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import selectedBg from "../../image/EllipseSelected.svg";
-import nonSelectedBg from "../../image/EllipseNonSelected.svg";
 import nonSelectedBg from "../../image/EllipseNonSelected 1.svg";
 import image1 from "../../image/Home Logo.svg";
 import { NavLink, useLocation } from "react-router-dom";
@@ -69,8 +68,6 @@ function Navbar() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-[#081228] relative cursor-none">
-      {/* Custom Cursor - Main Dot with Enhanced Gradient Glow */}
     <>
       {/* ===================== CUSTOM CURSOR ===================== */}
       {/* Main glowing cursor - সবচেয়ে উপরে */}
