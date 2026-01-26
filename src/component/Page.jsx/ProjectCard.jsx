@@ -119,12 +119,14 @@ export default function ProjectCardsCarousel() {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <div className="group relative bg-[#17223AED] rounded-2xl overflow-hidden h-full min-h-96 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <div className="relative h-64 md:h-80 overflow-hidden">
-                  <img
-                    src={`https://ahmadjubayerr.pythonanywhere.com${card.canvas_image}`}
-                    alt={card.title}
-                    className="w-full h-full px-5 pt-5 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+                <div className="relative h-64 md:h-80 overflow-hidden rounded-2xl">
+                  <div className="w-full h-full px-5 pt-5 group-hover:pt-0 transition-all duration-500">
+                    <img
+                      src={`https://ahmadjubayerr.pythonanywhere.com${card.canvas_image}`}
+                      alt={card.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 rounded-xl"
+                    />
+                  </div>
                 </div>
 
                 <div className="flex justify-end">
@@ -156,8 +158,8 @@ export default function ProjectCardsCarousel() {
 
                   <div className="flex flex-col flex-1 justify-between">
                     <p className="text-slate-400 text-[18px] md:text-base leading-relaxed line-clamp-4 group-hover:text-slate-300 transition-colors duration-300">
-                      {card.body?.substring(0, 140) || "Project description..."}
-                      {card.body?.length > 140 ? "..." : ""}
+                      {card.body?.substring(0, 100) || "Project description..."}
+                      {card.body?.length > 100 ? "..." : ""}
                     </p>
 
                     <div className="mt-4">
