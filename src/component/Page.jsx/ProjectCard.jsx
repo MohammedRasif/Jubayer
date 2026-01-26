@@ -103,7 +103,7 @@ export default function ProjectCardsCarousel() {
         >
           <GoTriangleLeft size={70} />
         </button>
-        <div className="flex gap-6 overflow-visible items-center">
+        <div className="flex gap-6 overflow-visible items-stretch">
           {visibleCards.map((card, index) => (
             <div
               key={`${card.id}-${currentIndex}`}
