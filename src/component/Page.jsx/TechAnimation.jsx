@@ -102,7 +102,7 @@ export default function TechAnimation() {
             ease: [0.25, 0.1, 0.25, 1],
           }}
         >
-          <div className=" rounded-2xl bg-card shadow-lg flex items-center justify-center">
+          <div className=" rounded-2xl bg-card  flex items-center justify-center">
             <img
               src={item.img}
               alt=""

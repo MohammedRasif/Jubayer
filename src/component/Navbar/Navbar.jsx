@@ -22,7 +22,6 @@ function Navbar() {
   const trailPos = useRef({ x: 0, y: 0 });
   const location = useLocation();
 
-  // Active route এর উপর ভিত্তি করে rotation সেট করা
   useEffect(() => {
     const activeIndex = routes.findIndex((r) => r.path === location.pathname);
     if (activeIndex !== -1) {
@@ -174,7 +173,7 @@ function Navbar() {
                     >
                       <img
                         src={isActive ? selectedBg : nonSelectedBg}
-                        className="bg-cover bg-center shadow-lg transition-all duration-300"
+                        className="bg-cover bg-center transition-all duration-300"
                         style={{
                           width: isActive ? "136px" : "120px",
                           height: isActive ? "66px" : "55px",
@@ -215,7 +214,7 @@ function Navbar() {
 
             {/* Center Logo */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 flex items-center justify-center pointer-events-none z-20">
-              <div className="w-full h-full rounded-2xl shadow-2xl flex items-center justify-center relative overflow-hidden">
+              <div className="w-full h-full rounded-2xl  flex items-center justify-center relative overflow-hidden">
                 <img src={image1} className="w-12 h-14" alt="Logo" />
               </div>
             </div>

@@ -21,10 +21,9 @@ function banner() {
   const [projectCount, setProjectCount] = useState(0);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-    const [activeLink, setActiveLink] = useState(null);
+  const [activeLink, setActiveLink] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Scroll to section with offset
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -43,7 +42,6 @@ function banner() {
     scrollToSection(id);
     setIsMenuOpen(false);
   };
-
   // Fetch profile data
   useEffect(() => {
     const fetchProfile = async () => {
@@ -127,7 +125,7 @@ function banner() {
         <TechAnimation />
       </div>
       <div className="absolute -top-10 left-0 w-full h-full flex flex-col items-center justify-center ">
-        <div className=" h-[60vh] w-[60vh] rounded-full bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center shadow-2xl">
+        <div className=" h-[60vh] w-[60vh] rounded-full bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center ">
           <span className=" font-bold text-white">
             <img src={`${baseUrl}${profile.profile_image}`} className="w-full h-full" alt="" />
           </span>
@@ -156,36 +154,42 @@ function banner() {
           <div className="flex justify-center gap-6 my-8">
             <a
               href="https://www.instagram.com/ahmadjubayerr/?__pwa=1"
+               target="_blank"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaInstagram size={22} />
             </a>
             <a
               href="https://x.com/ahmadjubayerr"
+               target="_blank"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <BsTwitterX size={22} />
             </a>
             <a
               href="https://www.linkedin.com/in/ahmadjubayerr/"
+              target="_blank"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaLinkedinIn size={22} />
             </a>
             <a
               href="https://www.behance.net/ahmadjubayerr"
+               target="_blank"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaBehance size={22} />
             </a>
             <a
               href="https://dribbble.com/ahmadjubayerr"
+               target="_blank"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaDribbble  size={22} />
             </a>
             <a
               href="https://www.facebook.com/ahmadjubayerrr/"
+               target="_blank"
               className="p-2 rounded-full border border-gray-500/50 hover:border-blue-500/50 transition-all hover:scale-110"
             >
               <FaFacebookF size={22} />
@@ -196,6 +200,7 @@ function banner() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <a
               href={`${baseUrl}${profile.resume}`}
+              target="_blank"
               download
               className="px-9 py-2 bg-transparent border-2 border-blue-600 rounded-md text-blue-400 font-medium hover:bg-blue-600/10 transition-all text-lg"
             >
