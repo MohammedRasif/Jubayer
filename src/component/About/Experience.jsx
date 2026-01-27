@@ -3,6 +3,11 @@ import Choose from "../Page.jsx/Choose";
 import image from "../../image/exparicen.png";
 import { MdOutlineWorkOutline } from "react-icons/md";
 
+import experiance from "../../image/experiance.svg";
+import Certifications from "../../image/Certifications.svg";
+import Education from "../../image/Education.svg";                     
+import Certificate from "../../image/Certificate.svg";                     
+
 function Experience() {
   return (
     <div className="min-h-screen  text-white pb-20 pt-5">
@@ -16,8 +21,8 @@ function Experience() {
           <div className="space-y-14">
             {/* Experience */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-gray-800 pb-10">
-              <h3 className="text-[30px] font-semibold text-gray-300 flex items-center gap-2">
-                <MdOutlineWorkOutline className="text-blue-500" />
+              <h3 className="text-[30px] font-semibold text-gray-50 flex items-center gap-4 ">
+                <img src={experiance} alt="" className="h-8 w-8" />
                 My Experience:
               </h3>
 
@@ -54,8 +59,8 @@ function Experience() {
 
             {/* Education */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-gray-800 pb-10">
-              <h3 className="text-[30px] font-semibold text-gray-300 flex items-center gap-2">
-                <MdOutlineWorkOutline className="text-blue-500" />
+              <h3 className="text-[30px] font-semibold text-gray-50 flex items-center gap-4">
+                <img src={Education} alt="" className="h-8 w-8" /> 
                 My Education:
               </h3>
 
@@ -76,9 +81,9 @@ function Experience() {
 
             {/* Certifications */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-              <h3 className="text-[30px] font-semibold text-gray-300 flex items-center gap-2">
-                <MdOutlineWorkOutline className="text-blue-500" /> My
-                Certifications:
+              <h3 className="text-[30px] font-semibold text-gray-50 flex items-center gap-4">
+                <img src={Certifications} alt="" className="h-8 w-8" /> 
+                My Certifications:
               </h3>
 
               <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -93,6 +98,24 @@ function Experience() {
                     UX research, wireframing, prototyping, and usability
                     testing.
                   </p>
+
+                  <div className="relative group inline-block mt-4 cursor-pointer">
+                    <p className="text-[18px] font-medium bg-gradient-to-r from-[#3066FF] to-[#A14AFF] bg-clip-text text-transparent">
+                      Certificate
+                    </p>
+                    <div className="h-[1.5px] w-full bg-gradient-to-r from-[#3066FF] to-[#A14AFF] "></div>
+                    
+                    {/* Certificate Tooltip/Preview */}
+                    <div className="absolute bottom-full left-0 mb-4 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 pointer-events-none z-50 origin-bottom-left">
+                      <div className="p-2 bg-[#1a1c2e]/90 backdrop-blur-xl rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-w-[350px]">
+                        <img 
+                          src={Certificate} 
+                          alt="Certificate Preview" 
+                          className="w-full h-auto rounded-lg shadow-2xl"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div>
@@ -106,6 +129,23 @@ function Experience() {
                     Branding, typography, color theory, and advanced visual
                     design.
                   </p>
+                  <div className="relative group inline-block mt-4 cursor-pointer">
+                    <p className="text-[18px] font-medium bg-gradient-to-r from-[#3066FF] to-[#A14AFF] bg-clip-text text-transparent">
+                      Certificate
+                    </p>
+                    <div className="h-[1.5px] w-full bg-gradient-to-r from-[#3066FF] to-[#A14AFF]"></div>
+
+                    {/* Certificate Tooltip/Preview */}
+                    <div className="absolute bottom-full left-0 mb-4 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 pointer-events-none z-50 origin-bottom-left">
+                      <div className="p-2 bg-[#1a1c2e]/90 backdrop-blur-xl rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-w-[350px]">
+                        <img 
+                          src={Certificate} 
+                          alt="Certificate Preview" 
+                          className="w-full h-auto rounded-lg shadow-2xl"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

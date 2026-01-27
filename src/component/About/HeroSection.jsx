@@ -33,7 +33,7 @@ function HeroSection() {
             />
           </svg>
         </span>
-        <span className="text-gray-200 text-sm font-medium">About</span>
+        <span className="text-gray-200 text-sm font-medium">About Me</span>
       </div>
 
       <img src={image} className="h-[58vh] w-auto" alt="" />
