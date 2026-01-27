@@ -3,141 +3,120 @@ import image from "../../image/11.svg";
 import image1 from "../../image/44.svg";
 import image2 from "../../image/55.svg";
 import image3 from "../../image/Image.png";
+import { Lightbulb, Smartphone, Contact, Globe } from "lucide-react";
 
-function CircularProgress({
-  percentage,
-  label,
-  color,
-  size = 90,
-  strokeWidth = 8,
-}) {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (percentage / 100) * circumference;
+import saventyone from "../../image/saventyone.svg";
+import jubayerPic from "../../image/jubayerPic.svg";
 
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="relative" style={{ width: size, height: size }}>
-        <svg
-          className="absolute inset-0 w-full h-full -rotate-90"
-          viewBox={`0 0 ${size} ${size}`}
-        >
-          {/* Background circle */}
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            fill="none"
-            stroke="#374151" // gray-700
-            strokeWidth={strokeWidth}
-          />
 
-          {/* Progress circle */}
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            fill="none"
-            stroke={color}
-            strokeWidth={strokeWidth}
-            strokeDasharray={circumference}
-            strokeDashoffset={offset}
-            strokeLinecap="round"
-            className="transition-all duration-1000 ease-out"
-          />
-        </svg>
-
-        {/* Percentage in center */}
-        <div
-          className="absolute inset-0 flex items-center justify-center font-bold text-xl"
-          style={{ color }}
-        >
-          {percentage}%
-        </div>
-      </div>
-      <span className="text-sm font-medium text-gray-300">{label}</span>
-    </div>
-  );
-}
+import CTA from "./CTA";
 
 function Vision() {
   return (
     <div className="text-white">
       {/* Why Choose Me Section */}
-      <section className="px-6 lg:px-16 py-20">
+      <section className="px-6 lg:px-16 py-24">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Left Content */}
-            <div className="space-y-6">
-              <div className="text-sm font-semibold text-gray-400 tracking-widest uppercase border px-5 w-44 py-2 rounded-full">
+            <div className="space-y-10">
+              <div className="text-sm font-semibold text-gray-400 tracking-widest uppercase border border-gray-800 px-6 w-fit py-2.5 rounded-full bg-gray-900/50">
                 Why Choose Me
               </div>
-              <h2 className="text-4xl lg:text-5xl font-bold leading-tight rozha bg-gradient-to-r from-white to-[#0137fa] bg-clip-text text-transparent">
-                Why I'm Your Ideal Design Partner
-              </h2>
-              <p className="text-gray-400 text-lg leading-relaxed">
-                I create designs that are not only visually appealing but also
-                easy to use. My strength lies in combining creative thinking
-                with user-centered design to craft digital experiences and
-                visuals that truly connect with people. With skills in UI/UX and
-                Graphic Design, I focus on delivering clean, modern, and
-                impactful work that makes brands stand out.
-              </p>
-
-              <div className="pt-6">
-                <h3 className="text-sm font-semibold text-gray-400 tracking-widest uppercase mb-4">
-                  Tools & Software
-                </h3>
-                <div className="flex flex-wrap gap-6 justify-start">
-                  {[
-                    { name: "Figma", percentage: 76, color: "#8B5CF6" },
-                    { name: "XD", percentage: 98, color: "#EC4899" },
-                    { name: "Ps", percentage: 98, color: "#06B6D4" },
-                    { name: "AI", percentage: 98, color: "#F97316" },
-                    { name: "Id", percentage: 90, color: "#EF4444" },
-                    { name: "Cursor", percentage: 90, color: "#FFFFFF" },
-                    { name: "Ae", percentage: 98, color: "#A78BFA" },
-                  ].map((tool, i) => (
-                    <CircularProgress
-                      key={i}
-                      label={tool.name}
-                      percentage={tool.percentage}
-                      color={tool.color}
-                      size={90}
-                      strokeWidth={8}
-                    />
-                  ))}
-                </div>
+              
+              <div className="flex gap-6 md:gap-8 items-start">
+                <img src={saventyone} alt="Arrow" className="w-16 md:w-20 lg:w-24 flex-shrink-0 mt-2" />
+                <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold leading-[1.1] rozha bg-gradient-to-r from-[#FFFFFF] to-[#184AFA] bg-clip-text text-transparent">
+                  Why I'm Your Ideal Design Partner
+                </h2>
               </div>
+              
+              <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl">
+                I design human-centered digital experiences that feel simple, clear, and easy to use. 
+                I've been working in the design field since 2023, starting my journey as a graphic designer 
+                and now focusing on UI/UX design. This background helps me combine strong visual sense 
+                with thoughtful, user-focused thinking. I care deeply about clarity, usability, and details, 
+                and I always aim to create interfaces that feel natural, intuitive, and genuinely helpful for real people.
+              </p>
+               {/* Divider */}
+          <div className="h-[1px] bg-[#ACD4FF] my-6"></div>
             </div>
 
             {/* Right Image */}
             <div className="relative">
-              <div className="rounded-lg overflow-hidden shadow-2xl">
+              <div className="rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
                 <img
-                  src="/designer-at-desk-workspace.jpg"
+                  src={jubayerPic}
                   alt="Designer at workspace"
-                  className="w-full h-full object-cover"
+                  className="w-full h-[500px] object-cover"
                 />
+              </div>
+            </div>
+          </div>
+
+         
+
+          {/* Bottom Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-20 mt-24">
+            {/* Feature 1 */}
+            <div className="flex gap-8 group">
+              <div className="flex-shrink-0 w-16 h-16 bg-[#111827] border border-gray-800 rounded-2xl flex items-center justify-center text-white group-hover:border-[#0137fa]/50 transition-colors">
+                <Lightbulb size={32} className="text-gray-400 group-hover:text-white transition-colors" />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold">Product-First Mindset</h3>
+                <p className="text-gray-400 leading-relaxed text-lg lg:text-xl">
+                  I design with a deep understanding of user needs, business goals, and long-term product scalability—not just screens.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="flex gap-8 group">
+              <div className="flex-shrink-0 w-16 h-16 bg-[#111827] border border-gray-800 rounded-2xl flex items-center justify-center text-white group-hover:border-[#0137fa]/50 transition-colors">
+                <Smartphone size={32} className="text-gray-400 group-hover:text-white transition-colors" />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold">Clarity Over Complexity</h3>
+                <p className="text-gray-400 leading-relaxed text-lg lg:text-xl">
+                  I simplify complex flows into intuitive, easy-to-use experiences that users understand without friction.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="flex gap-8 group">
+              <div className="flex-shrink-0 w-16 h-16 bg-[#111827] border border-gray-800 rounded-2xl flex items-center justify-center text-white group-hover:border-[#0137fa]/50 transition-colors">
+                <Contact size={32} className="text-gray-400 group-hover:text-white transition-colors" />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold">End-to-End Design Ownership</h3>
+                <p className="text-gray-400 leading-relaxed text-lg lg:text-xl">
+                  From research and information architecture to UI and design systems, I handle the complete design process.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="flex gap-8 group">
+              <div className="flex-shrink-0 w-16 h-16 bg-[#111827] border border-gray-800 rounded-2xl flex items-center justify-center text-white group-hover:border-[#0137fa]/50 transition-colors">
+                <Globe size={32} className="text-gray-400 group-hover:text-white transition-colors" />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold">Built for Real-World Use</h3>
+                <p className="text-gray-400 leading-relaxed text-lg lg:text-xl">
+                  My designs are practical, developer-friendly, and ready to ship—focused on usability, not just aesthetics.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="px-6 lg:px-16 py-16 bg-[#17223AED]">
-        <div className="max-w-7xl mx-auto text-center space-y-6">
-          <h3 className="text-3xl font-semibold">Have a project in mind?</h3>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Let's collaborate and create something amazing together. I'm always
-            excited to work on challenging projects.
-          </p>
-          <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-semibold hover:opacity-90 transition">
-            Get in Touch
-          </button>
-        </div>
-      </section>
+
+      <CTA/>
+
+
 
       {/* Vision & Philosophy Section */}
       <section className="px-6 lg:px-16 py-20 bg-slate-900/50">
