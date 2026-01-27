@@ -103,7 +103,7 @@ export default function ProjectFile() {
               <div
                 key={project.id}
                 onClick={() => navigate(`/project_details/${project.id}`)}
-                className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-gray-900/60 to-gray-900/40 transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-blue-900/30 hover:border-2 hover:border-blue-600/50 cursor-pointer min-h-[520px] flex flex-col backdrop-blur-sm"
+                className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-gray-900/60 to-gray-900/40 transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-blue-900/30 hover:border-6 hover:border-blue-600/50 cursor-pointer min-h-[520px] flex flex-col backdrop-blur-sm"
               >
                 {/* Image Section */}
                 <div className="relative h-[340px] overflow-hidden bg-black/40">

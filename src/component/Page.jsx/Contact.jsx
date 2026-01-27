@@ -1,34 +1,65 @@
-import React, { useRef } from "react";
-import emailjs from "@emailjs/browser";
+import React, { useRef, useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Don't forget this import!
 import image from "../../image/Frame 1.png";
 import image1 from "../../image/Looper.svg";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 
 function Contact() {
   const form = useRef();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    const SERVICE_ID = "service_w60nke7";
-    const TEMPLATE_ID = "template_qqb7wte";
-    const PUBLIC_KEY = "3x-D7aGgY45UCDyUC";
+    // Collect form data
+    const formData = new FormData(form.current);
+    const data = {
+      name: formData.get("from_name"),
+      email: formData.get("reply_to"),
+      message: formData.get("message"),
+    };
 
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY).then(
-      () => {
-        alert("Message sent successfully!");
-        form.current.reset();
-      },
-      () => {
-        alert("Something went wrong. Please try again later.");
-      }
-    );
+    try {
+      const response = await axios.post(
+        "https://ahmadjubayerr.pythonanywhere.com/api/contact/",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // Success
+      toast.success("Message sent successfully!", {
+        position: "top-right",
+        autoClose: 4000,
+      });
+
+      form.current.reset(); // Clear form
+    } catch (error) {
+      console.error("Error sending message:", error);
+
+      const errorMsg =
+        error.response?.data?.message ||
+        error.message ||
+        "Something went wrong. Please try again later.";
+
+      toast.error(errorMsg, {
+        position: "top-right",
+        autoClose: 5000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div id="hire_me" className="relative overflow-hidden">
       <div className="relative py-20">
-
         {/* Heading */}
         <div className="text-center flex flex-col items-center justify-center container mx-auto">
           <img src={image} alt="" />
@@ -43,7 +74,6 @@ function Contact() {
         {/* Form + Info Section */}
         <div className="w-full max-w-7xl mx-auto mt-16 relative z-10 px-4">
           <div className="flex flex-col md:flex-row gap-10">
-
             {/* FORM — 3/4 */}
             <div className="w-full md:w-3/4 flex justify-center">
               <form
@@ -88,14 +118,17 @@ function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-md shadow-lg hover:scale-105 transition"
+                  disabled={isLoading}
+                  className={`w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-md shadow-lg hover:scale-105 transition ${
+                    isLoading ? "opacity-70 cursor-not-allowed" : ""
+                  }`}
                 >
-                  Send Message
+                  {isLoading ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>
 
-            {/* INFO — 1/4 */}
+            {/* INFO — 1/4 (unchanged) */}
             <div className="w-full md:w-2/5 flex">
               <div className="w-full rounded-2xl border border-white/10 backdrop-blur-[2px] p-6 shadow-xl flex flex-col justify-center">
                 <h2 className="text-2xl font-semibold text-white mb-8">
@@ -135,11 +168,10 @@ function Contact() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
 
-        {/* Background rotating shapes */}
+        {/* Background rotating shapes (unchanged) */}
         <img
           src={image1}
           className="absolute top-0 left-20 h-96 animate-[spin_20s_linear_infinite]"
@@ -151,6 +183,20 @@ function Contact() {
           alt=""
         />
       </div>
+
+      {/* Toastify Container - place it here or in your root layout */}
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark" // or "light" / "colored"
+      />
     </div>
   );
 }

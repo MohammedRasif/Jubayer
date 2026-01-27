@@ -17,7 +17,6 @@ function HeroSection() {
         <NavLink to="/">
           <span className="text-gray-400 text-sm font-medium">Home</span>
         </NavLink>
-
         <span className="mx-2 text-gray-400">
           <svg
             className="w-4 h-4"
@@ -35,7 +34,6 @@ function HeroSection() {
         </span>
         <span className="text-gray-200 text-sm font-medium">About</span>
       </div>
-
       <img src={image} className="h-[58vh] w-auto" alt="" />
       <div className="-mt-38">
         <h1 className="text-[70px] rozha">Hi, I'm Jubayer</h1>
