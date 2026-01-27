@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import image from "../../image/Ellipse 230.png";
-import image1 from "../../image/Frame 1000004068.png";
+import image1 from "../../image/Frame 1000004068.svg";
 
 function Navbar() {
   const routes = ["Home", "Project", "Services", "About Me"];

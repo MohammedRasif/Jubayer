@@ -1,6 +1,6 @@
 import React from "react";
 import image from "../../image/Group 24.png";
-import image2 from "../../image/Frame 1000004068.png";
+import image2 from "../../image/Frame 1000004068.svg";
 import { NavLink } from "react-router-dom";
 
 function HeroSection() {

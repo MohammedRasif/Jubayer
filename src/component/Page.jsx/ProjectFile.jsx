@@ -4,6 +4,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
+const categoryMap = {
+  "All Project": null,
+  "Website Design": "website_design",
+  "Mobile App": "mobile",
+  "Live Projects": "live",
+  "Case Study": "case_study",
+  "Graphic Design": "graphic_design",
+};
 const categories = [
   "All Project",
   "Website Design",
@@ -12,7 +20,6 @@ const categories = [
   "Case Study",
   "Graphic Design",
 ];
-
 export default function ProjectFile() {
   const [activeCategory, setActiveCategory] = useState("All Project");
   const [projects, setProjects] = useState([]);
@@ -26,7 +33,7 @@ export default function ProjectFile() {
     const fetchProjects = async () => {
       try {
         const res = await axios.get(
-          "https://ahmadjubayerr.pythonanywhere.com/api/projects/"
+          "https://ahmadjubayerr.pythonanywhere.com/api/projects/",
         );
         setProjects(res.data || []);
         console.log("API Projects:", res.data);
@@ -51,15 +58,12 @@ export default function ProjectFile() {
   const filteredProjects = projects.filter((project) => {
     if (activeCategory === "All Project") return true;
 
-    const projectCategory = normalizeCategory(project.category);
+    const expectedBackendCat = categoryMap[activeCategory];
 
-    if (activeCategory === "Case Study") {
-      return projectCategory === "Case Study";
-    }
+    if (!expectedBackendCat) return false; // safety
 
-    return projectCategory === activeCategory;
+    return (project.category || "").toLowerCase() === expectedBackendCat;
   });
-
   const baseURL = "https://ahmadjubayerr.pythonanywhere.com";
 
   if (loading) {
@@ -72,7 +76,7 @@ export default function ProjectFile() {
 
   return (
     <div className="">
-      <div className="flex flex-wrap gap-3 justify-center mt-10 bg-[#00184C] py-5">
+      <div className="flex flex-wrap gap-3 justify-center  bg-[#00184C] py-5">
         {categories.map((category) => (
           <button
             key={category}
