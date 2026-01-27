@@ -10,14 +10,14 @@ import Certificate from "../../image/Certificate.svg";
 
 function Experience() {
   return (
-    <div className="min-h-screen  text-white pb-20 pt-5">
+    <div className=" text-white pb-10 pt-5">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="flex items-center justify-center jus mb-16">
           <img src={image} alt="" className="h-10" />
         </div>
 
-        <div className="max-w-7xl mx-auto pb-20 text-white">
+        <div className="max-w-7xl mx-auto pb-10 text-white">
           <div className="space-y-14">
             {/* Experience */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-gray-800 pb-10">
@@ -153,14 +153,7 @@ function Experience() {
         </div>
 
         <div>
-          <div className="text-center mb-12">
-            <p className="text-sm text-gray-400 uppercase tracking-widest mb-4">
-              MY SKILLS
-            </p>
-            <h2 className="text-5xl font-bold mb-8 rozha">
-              Key Expertise in UI/UX Excellence
-            </h2>
-          </div>
+          
           
 
           {/* Two columns of skills */}
