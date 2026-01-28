@@ -60,11 +60,21 @@ export default function ProjectFile() {
   const filteredProjects = projects.filter((project) => {
     if (activeCategory === "All Project") return true;
 
-    const expectedBackendCat = categoryMap[activeCategory];
-    if (!expectedBackendCat) return false;
+    const selected = activeCategory.toLowerCase();
+    const tags = (project.tag || "")
+      .toLowerCase()
+      .split(",")
+      .map((t) => t.trim());
 
-    return (project.category || "").toLowerCase() === expectedBackendCat;
+    return tags.some((tag) => tag.includes(selected));
   });
+  const handleViewProject = (project) => {
+    localStorage.setItem("selectedProjectId", project.id);
+
+    const tagsArray = (project.tag || "").split(",").map((tag) => tag.trim());
+
+    localStorage.setItem("selectedProjectTags", JSON.stringify(tagsArray));
+  };
 
   if (loading) {
     return (
@@ -102,7 +112,10 @@ export default function ProjectFile() {
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                onClick={() => navigate(`/project_details/${project.id}`)}
+                onClick={() => {
+                  handleViewProject(project);
+                  navigate(`/project_details/${project.id}`);
+                }}
                 className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-gray-900/60 to-gray-900/40 transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-blue-900/30 hover:border-6 hover:border-blue-600/50 cursor-pointer min-h-[520px] flex flex-col backdrop-blur-sm"
               >
                 {/* Image Section */}
@@ -152,8 +165,11 @@ export default function ProjectFile() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-indigo-900/10 to-purple-900/20 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center z-10 pointer-events-none group-hover:pointer-events-auto backdrop-blur-[2px]">
                   <NavLink
                     to={`/project_details/${project.id}`}
-                    onClick={(e) => e.stopPropagation()}
-                    className="px-5 py-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold text-lg rounded-md transform translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-600 hover:scale-110 active:scale-95 shadow-[0_0_30px_rgba(79,70,229,0.5)] hover:shadow-[0_0_50px_rgba(79,70,229,0.7)]"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleViewProject(project);
+                    }}
+                    className="px-5 py-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold text-lg rounded-md transition-all"
                   >
                     View Project
                   </NavLink>
