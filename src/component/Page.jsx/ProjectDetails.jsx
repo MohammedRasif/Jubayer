@@ -14,11 +14,12 @@ const ProjectDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [suggestedProjects, setSuggestedProjects] = useState([]);
+  const [showAllSuggestions, setShowAllSuggestions] = useState(false);
   const baseURL = "https://ahmadjubayerr.pythonanywhere.com";
 
-  // Scroll to top on mount
+  // Smooth scroll to top when component mounts / page loads
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   // Fetch single project details
@@ -27,9 +28,7 @@ const ProjectDetails = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get(
-          `${baseURL}/api/projects/${id}/detail/`,
-        );
+        const response = await axios.get(`${baseURL}/api/projects/${id}/detail/`);
         setProject(response.data);
       } catch (err) {
         console.error("Error fetching project details:", err);
@@ -52,8 +51,7 @@ const ProjectDetails = () => {
         const allProjects = res.data || [];
 
         // Get selected tags from localStorage
-        const selectedTags =
-          JSON.parse(localStorage.getItem("selectedProjectTags")) || [];
+        const selectedTags = JSON.parse(localStorage.getItem("selectedProjectTags")) || [];
 
         if (selectedTags.length === 0 || !project) {
           setSuggestedProjects([]);
@@ -70,11 +68,8 @@ const ProjectDetails = () => {
           .filter((p) => {
             if (!p.tag) return false;
             const projectTags = p.tag.split(",").map(normalize);
-            return selectedTags.some((selected) =>
-              projectTags.includes(normalize(selected)),
-            );
-          })
-          .slice(0, 6); // limit to 6 suggestions (you can change this)
+            return selectedTags.some((selected) => projectTags.includes(normalize(selected)));
+          });
 
         setSuggestedProjects(suggestions);
       } catch (err) {
@@ -88,7 +83,7 @@ const ProjectDetails = () => {
     }
   }, [project, id]);
 
-  // Simple category normalizer (you can adjust if needed)
+  // Simple category normalizer
   const normalizeCategory = (tag) => {
     return tag
       .split("-")
@@ -96,12 +91,15 @@ const ProjectDetails = () => {
       .join(" ");
   };
 
+  // Decide how many to show
+  const displayedProjects = showAllSuggestions
+    ? suggestedProjects
+    : suggestedProjects.slice(0, 2);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#081228]">
-        <div className="text-white text-xl animate-pulse">
-          Loading project details...
-        </div>
+        <div className="text-white text-xl animate-pulse">Loading project details...</div>
       </div>
     );
   }
@@ -136,10 +134,6 @@ const ProjectDetails = () => {
 
   return (
     <div className="min-h-screen bg-[#081228] text-white pb-16">
-      {/* ──────────────────────────────────────────────── */}
-      {/*               EXISTING HERO + CONTENT            */}
-      {/* ──────────────────────────────────────────────── */}
-
       <video
         src={image1}
         autoPlay
@@ -167,48 +161,22 @@ const ProjectDetails = () => {
 
               <div className="inline-flex items-center px-4 py-2 mb-3 bg-[#334155]/80 backdrop-blur-sm rounded-md border border-gray-600/50 shadow-lg">
                 <NavLink to="/">
-                  <span className="text-gray-400 text-sm font-medium">
-                    Home
-                  </span>
+                  <span className="text-gray-400 text-sm font-medium">Home</span>
                 </NavLink>
                 <span className="mx-2 text-gray-400">
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </span>
                 <NavLink className="cursor-pointer" to="/project">
-                  <span className="text-gray-400 text-sm font-medium">
-                    Projects
-                  </span>
+                  <span className="text-gray-400 text-sm font-medium">Projects</span>
                 </NavLink>
                 <span className="mx-2 text-gray-400">
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </span>
-                <span className="text-gray-200 text-sm font-medium">
-                  Projects Details
-                </span>
+                <span className="text-gray-200 text-sm font-medium">Projects Details</span>
               </div>
 
               <h1 className="text-white max-w-3xl text-4xl md:text-5xl lg:text-[48px] rozha font-bold leading-tight tracking-wide drop-shadow-2xl">
@@ -218,28 +186,16 @@ const ProjectDetails = () => {
 
             <div className="relative max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left px-6 py-5">
               <div>
-                <p className="text-gray-400 text-[18px] tracking-wide mb-2 text-center">
-                  Duration
-                </p>
-                <h1 className="text-white text-3xl md:text-[24px] font-semibold text-center">
-                  {project.duration}
-                </h1>
+                <p className="text-gray-400 text-[18px] tracking-wide mb-2 text-center">Duration</p>
+                <h1 className="text-white text-3xl md:text-[24px] font-semibold text-center">{project.duration}</h1>
               </div>
               <div>
-                <p className="text-gray-400 text-[18px] tracking-wide mb-2 text-center">
-                  Category
-                </p>
-                <h1 className="text-white text-3xl md:text-[24px] font-semibold text-center">
-                  {project.category}
-                </h1>
+                <p className="text-gray-400 text-[18px] tracking-wide mb-2 text-center">Category</p>
+                <h1 className="text-white text-3xl md:text-[24px] font-semibold text-center">{project.category}</h1>
               </div>
               <div>
-                <p className="text-gray-400 text-[18px] tracking-wide mb-2 text-center">
-                  Responsibility
-                </p>
-                <h1 className="text-white text-3xl md:text-[24px] font-semibold text-center">
-                  UX & UI Design
-                </h1>
+                <p className="text-gray-400 text-[18px] tracking-wide mb-2 text-center">Responsibility</p>
+                <h1 className="text-white text-3xl md:text-[24px] font-semibold text-center">UX & UI Design</h1>
               </div>
             </div>
           </div>
@@ -256,10 +212,7 @@ const ProjectDetails = () => {
           <div className="w-full pb-16 lg:pb-24 relative">
             {project.overview_video_link && (
               <div className="w-full max-w-[100vh] mx-auto overflow-hidden border-32 border-t-50 border-gray-800 bg-black rounded-3xl shadow-2xl">
-                <div
-                  className="relative w-full rounded-md"
-                  style={{ aspectRatio: "16/9" }}
-                >
+                <div className="relative w-full rounded-md" style={{ aspectRatio: "16/9" }}>
                   {getYouTubeId(project.overview_video_link) ? (
                     <iframe
                       src={`https://www.youtube.com/embed/${getYouTubeId(project.overview_video_link)}?autoplay=1&mute=1&rel=0&modestbranding=1&controls=1&showinfo=0`}
@@ -301,23 +254,39 @@ const ProjectDetails = () => {
           )}
         </div>
       </div>
-
       {suggestedProjects.length > 0 && (
         <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-800/50">
-          <div className="flex items-start justify-between">
-            <h2 className="text-3xl md:text-4xl font-bold  mb-12 bg-gradient-to-r from-white to-blue-600 bg-clip-text text-transparent ">
+          <div className="flex items-start justify-between mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-blue-600 bg-clip-text text-transparent">
               Related Projects
             </h2>
-            <button className="cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600  px-5 py-2 rounded-md text-white font-medium hover:from-blue-700 hover:to-purple-700 transition">
-              See more
-            </button>
+
+            {suggestedProjects.length > 2 && (
+              <button
+                onClick={() => {
+                  setShowAllSuggestions(!showAllSuggestions);
+                  // Optional: scroll a bit down to see the expanded list smoothly
+                  window.scrollTo({
+                    top: window.scrollY + 300,
+                    behavior: "smooth",
+                  });
+                }}
+                className="cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 rounded-md text-white font-medium hover:from-blue-700 hover:to-purple-700 transition shadow-md"
+              >
+                {showAllSuggestions ? "Show Less" : "See More"}
+              </button>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {suggestedProjects.map((proj) => (
+            {displayedProjects.map((proj) => (
               <div
                 key={proj.id}
-                onClick={() => navigate(`/project_details/${proj.id}`)}
+                onClick={() => {
+                  // When clicking a suggestion → go to that project + scroll top
+                  navigate(`/project_details/${proj.id}`);
+                  window.scrollTo({ top: 0, behavior: "instant" });
+                }}
                 className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-gray-900/60 to-gray-900/40 transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-blue-900/30 hover:border-6 hover:border-blue-600/50 cursor-pointer min-h-[520px] flex flex-col backdrop-blur-sm"
               >
                 {/* Image Section */}
@@ -368,6 +337,12 @@ const ProjectDetails = () => {
               </div>
             ))}
           </div>
+
+          {suggestedProjects.length === 0 && showAllSuggestions && (
+            <p className="text-center text-gray-400 mt-12 text-lg">
+              No other related projects found at the moment.
+            </p>
+          )}
         </div>
       )}
     </div>
@@ -376,8 +351,7 @@ const ProjectDetails = () => {
 
 const getYouTubeId = (url) => {
   if (!url) return null;
-  const regExp =
-    /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
   return match && match[2].length === 11 ? match[2] : null;
 };
