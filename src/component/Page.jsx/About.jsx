@@ -9,7 +9,7 @@ import image5 from "../../image/Frame 10000040.png";
 function About() {
   return (
     <div className="container mx-auto py-8">
-      <div className="min-h-screen flex ">
+      <div className="min-h-screen flex lg:pb-10">
         <div className="relative w-full ">
           <img
             src={image}

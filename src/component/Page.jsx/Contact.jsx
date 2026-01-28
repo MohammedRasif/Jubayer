@@ -39,7 +39,7 @@ function Contact() {
         autoClose: 4000,
       });
 
-      form.current.reset(); // Clear form
+      form.current.reset(); 
     } catch (error) {
       console.error("Error sending message:", error);
 
@@ -195,7 +195,7 @@ function Contact() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark" // or "light" / "colored"
+        theme="dark" 
       />
     </div>
   );
